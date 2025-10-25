@@ -68,7 +68,7 @@ button:hover{background:#372fd4;transform:scale(1.02);}
  <div class="spinner" style="border:5px solid #eee;border-top:5px solid #4b3df5;border-radius:50%;width:70px;height:70px;margin:0 auto;animation:spin 1s linear infinite;"></div>
 </div>
 
-<h2>EncuestaS de Percepción – Estudio Quineche</h2>
+<h2>Encuesta de Percepción – Estudio Quineche</h2>
 <div id="intro">
   <p><strong>Estimado(a) <span id="nombre"></span>:</strong></p>
   <p>
@@ -283,7 +283,7 @@ document.getElementById('form').addEventListener('submit',async e=>{
    if(el.name)data[el.name]=el.value;
  });
 
- const url="https://35.208.11.175/webhook-test/94d5ddbf-b78d-4c54-9d6c-52ca809e3def";
+ const url="https://35.208.11.175/webhook/94d5ddbf-b78d-4c54-9d6c-52ca809e3def";
  try{
    const response=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
    const result=await response.json();
