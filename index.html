@@ -68,7 +68,7 @@ button:hover{background:#372fd4;transform:scale(1.02);}
  <div class="spinner" style="border:5px solid #eee;border-top:5px solid #4b3df5;border-radius:50%;width:70px;height:70px;margin:0 auto;animation:spin 1s linear infinite;"></div>
 </div>
 
-<h2>EncuestaS de Percepción – Estudio Quineche</h2>
+<h2>EncuestaS de PercepciónS – Estudio Quineche</h2>
 <div id="intro">
   <p><strong>Estimado(a) <span id="nombre"></span>:</strong></p>
   <p>
@@ -225,7 +225,7 @@ function next(a,b){
  nxt.classList.remove('hidden');
  nxt.scrollIntoView({behavior:'smooth'});
 }
-['1','2','3','4','5','6'].forEach(i=>{
+['1','2','3','4','5'].forEach(i=>{
  document.getElementById(`btn${i}`).addEventListener('click',()=>next(`sec${i}`,`sec${parseInt(i)+1}`));
 });
 
