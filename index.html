@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Encuestas – Estudio Quineche</title>
+<title>Encuesta – Estudio Quineche</title>
 <style>
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -246,7 +246,7 @@ document.getElementById('form').addEventListener('submit',async e=>{
    if(el.name)data[el.name]=el.value;
  });
 
- const url="https://35.208.11.175/webhook-test/94d5ddbf-b78d-4c54-9d6c-52ca809e3def";
+ const url="https://35.208.11.175/webhook/94d5ddbf-b78d-4c54-9d6c-52ca809e3def";
  try{
    const response=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
    const result=await response.json();
