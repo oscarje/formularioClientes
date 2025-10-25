@@ -114,30 +114,6 @@
       transition: all 0.3s ease;
     }
 
-    .section-title {
-      font-size: 18px;
-      font-weight: 700;
-      color: #2e2b57;
-      margin-bottom: 10px;
-    }
-
-    .rating-scale {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 15px 0 10px;
-    }
-
-    .rating-labels {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 12px;
-    }
-
     .rating-options {
       display: grid;
       grid-template-columns: repeat(11, 1fr);
@@ -145,14 +121,7 @@
       width: 100%;
     }
 
-    .rating-option {
-      display: flex;
-      justify-content: center;
-    }
-
-    .rating-option input {
-      display: none;
-    }
+    .rating-option input { display: none; }
 
     .rating-option span {
       display: inline-block;
@@ -162,15 +131,8 @@
       background: #fff;
       border: 1.5px solid #ccc;
       border-radius: 6px;
-      font-size: clamp(0.85rem, 2vw, 1rem);
-      color: #333;
       cursor: pointer;
       transition: all 0.2s ease;
-    }
-
-    .rating-option span:hover {
-      border-color: #6b5cff;
-      background: #f0edff;
     }
 
     .rating-option input:checked + span {
@@ -178,19 +140,6 @@
       color: white;
       border-color: #4b3df5;
       font-weight: 600;
-      box-shadow: 0 0 6px rgba(75, 61, 245, 0.4);
-    }
-
-    @media (max-width: 480px) {
-      .rating-labels {
-        font-size: 0.65rem;
-        margin-bottom: 8px;
-      }
-      .rating-options { gap: 4px; }
-      .rating-option span {
-        padding: 8px 0;
-        font-size: 0.75rem;
-      }
     }
 
     @keyframes spin {
@@ -222,36 +171,29 @@
       </div>
 
       <form id="form">
-        <!-- Secciones (las mismas que ya tenías, no se tocan) -->
-        <!-- 🟣 Sección 1 -->
         <div id="sec1" class="section">
-          <label>¿Qué tan probable es que recomiende al Estudio Quineche a otra empresa?</label>
-          <div class="rating-scale">
-            <div class="rating-labels"><span>No lo recomendaría</span><span>Sí lo recomendaría</span></div>
-            <div class="rating-options" id="npsOptions"></div>
-          </div>
-
-          <div id="preg0_6" class="hidden">
-            <label>¿Qué aspectos no te agradan para calificarlo así?</label>
-            <textarea name="comentario_0_6" rows="3"></textarea>
-          </div>
-          <div id="preg7_8" class="hidden">
-            <label>¿Qué aspectos consideras que debe mejorar el Estudio Quineche & Asociados?</label>
-            <textarea name="comentario_7_8" rows="3"></textarea>
-          </div>
-          <div id="preg9_10" class="hidden">
-            <label>¿Qué aspectos resaltan para que recomiendes al Estudio Quineche?</label>
-            <textarea name="comentario_9_10" rows="3"></textarea>
-          </div>
-
+          <label>¿Qué tan probable es que recomiende al Estudio Quineche?</label>
+          <div class="rating-options" id="npsOptions"></div>
+          <div id="preg0_6" class="hidden"><label>¿Qué aspectos no te agradan?</label><textarea name="comentario_0_6"></textarea></div>
+          <div id="preg7_8" class="hidden"><label>¿Qué aspectos debe mejorar?</label><textarea name="comentario_7_8"></textarea></div>
+          <div id="preg9_10" class="hidden"><label>¿Qué aspectos resaltan?</label><textarea name="comentario_9_10"></textarea></div>
           <button type="button" id="btn1" class="hidden">Continuar ➜</button>
         </div>
 
-        <!-- 🟣 Sección 2–7 (idénticas a tu versión original) -->
-        <!-- (omito repetirlas aquí por espacio, pero no se modifican en estructura ni IDs) -->
+        <div id="sec2" class="section hidden">
+          <label>Respecto al cumplimiento de los TRABAJOS y AVANCES ENTREGABLES</label>
+          <div class="rating-options" id="trabajosOptions"></div>
+          <div id="coment_trabajos" class="hidden"><label>Coméntanos por qué calificó así</label><textarea></textarea></div>
+          <button type="button" id="btn2" class="hidden">Continuar ➜</button>
+        </div>
 
-        <!-- 🟣 Botón final -->
-        <button type="submit" id="btnEnviar" class="hidden">Enviar respuestas</button>
+        <div id="sec7" class="section hidden">
+          <label>Calidad del servicio general</label>
+          <div class="rating-options" id="calidadOptions"></div>
+          <div id="coment_calidad_1" class="hidden"><label>¿Qué mejoras sugeriría?</label><textarea></textarea></div>
+          <div id="coment_calidad_2" class="hidden"><label>¿Qué nuevos u otros servicios le gustaría?</label><textarea></textarea></div>
+          <button type="submit" id="btnEnviar" class="hidden">Enviar respuestas</button>
+        </div>
       </form>
 
       <p id="msg" class="msg"></p>
@@ -261,33 +203,58 @@
   </div>
 
   <script>
-    // === Generar botones 0–10 ===
-    ["npsOptions", "trabajosOptions", "cumplimientoOptions", "asesoramientoOptions", "tiempoOptions", "amabilidad2Options", "calidadOptions"]
-      .forEach(id => {
-        const c = document.getElementById(id);
-        if (c) c.innerHTML = Array.from({ length: 11 }, (_, i) => 
-          `<label class='rating-option'><input type='radio' name='${id}' value='${i}'><span>${i}</span></label>`).join('');
-      });
+    // Generar botones 0–10
+    ["npsOptions", "trabajosOptions", "calidadOptions"].forEach(id => {
+      const c = document.getElementById(id);
+      if (c) c.innerHTML = Array.from({ length: 11 }, (_, i) =>
+        `<label class='rating-option'><input type='radio' name='${id}' value='${i}'><span>${i}</span></label>`).join('');
+    });
 
-    // Asignar nombre desde la URL
     const params = new URLSearchParams(window.location.search);
     document.getElementById('nombre').innerText = params.get('nombre') || 'cliente';
 
-    // Navegación entre secciones
+    // === Sección NPS ===
+    document.querySelectorAll('#npsOptions input').forEach(r => {
+      r.addEventListener('change', e => {
+        const val = parseInt(e.target.value);
+        const p0_6 = document.getElementById('preg0_6'), p7_8 = document.getElementById('preg7_8'), p9_10 = document.getElementById('preg9_10');
+        [p0_6, p7_8, p9_10].forEach(p => p.classList.add('hidden'));
+        const active = val <= 6 ? p0_6 : val <= 8 ? p7_8 : p9_10;
+        active.classList.remove('hidden');
+        const t = active.querySelector('textarea');
+        t.addEventListener('input', () => { if (t.value.trim().length > 3) document.getElementById('btn1').classList.remove('hidden'); });
+      });
+    });
+
+    function setupSection(optionsId, comentId, btnId, nextId) {
+      const radios = document.querySelectorAll(`#${optionsId} input`);
+      const div = document.getElementById(comentId);
+      const btn = document.getElementById(btnId);
+      radios.forEach(r => {
+        r.addEventListener('change', () => {
+          div.classList.remove('hidden');
+          const t = div.querySelector('textarea');
+          t.addEventListener('input', () => {
+            if (t.value.trim().length > 3) btn.classList.remove('hidden');
+          });
+        });
+      });
+      btn.addEventListener('click', () => next(optionsId.replace('Options', 'sec'), nextId));
+    }
+
     function next(a, b) {
       document.getElementById(a).classList.add('hidden');
-      const nextSection = document.getElementById(b);
-      nextSection.classList.remove('hidden');
-      nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.getElementById(b).classList.remove('hidden');
+      document.getElementById(b).scrollIntoView({ behavior: 'smooth' });
     }
 
     document.getElementById('btn1').addEventListener('click', () => next('sec1', 'sec2'));
+    document.getElementById('btn2').addEventListener('click', () => next('sec2', 'sec7'));
 
-    // === Envío del formulario ===
+    // Envío
     document.getElementById('form').addEventListener('submit', async e => {
       e.preventDefault();
 
-      const btnEnviar = document.getElementById('btnEnviar');
       const form = document.getElementById('form');
       const intro = document.getElementById('intro');
       const loading = document.getElementById('loading');
@@ -296,9 +263,7 @@
       form.classList.add('hidden');
       intro.classList.add('hidden');
       loading.classList.remove('hidden');
-      btnEnviar.disabled = true;
 
-      // Captura de datos
       const data = {
         nombre: document.getElementById('nombre').innerText,
         npsOptions: document.querySelector('input[name="npsOptions"]:checked')?.value || '',
@@ -307,20 +272,12 @@
         comentario_9_10: document.querySelector('textarea[name="comentario_9_10"]')?.value || '',
         trabajosOptions: document.querySelector('input[name="trabajosOptions"]:checked')?.value || '',
         coment_trabajos: document.querySelector('#coment_trabajos textarea')?.value || '',
-        cumplimientoOptions: document.querySelector('input[name="cumplimientoOptions"]:checked')?.value || '',
-        coment_cumplimiento: document.querySelector('#coment_cumplimiento textarea')?.value || '',
-        asesoramientoOptions: document.querySelector('input[name="asesoramientoOptions"]:checked')?.value || '',
-        coment_asesoramiento: document.querySelector('#coment_asesoramiento textarea')?.value || '',
-        tiempoOptions: document.querySelector('input[name="tiempoOptions"]:checked')?.value || '',
-        coment_tiempo: document.querySelector('#coment_tiempo textarea')?.value || '',
-        amabilidad2Options: document.querySelector('input[name="amabilidad2Options"]:checked')?.value || '',
-        coment_amabilidad2: document.querySelector('#coment_amabilidad2 textarea')?.value || '',
         calidadOptions: document.querySelector('input[name="calidadOptions"]:checked')?.value || '',
         coment_calidad_1: document.querySelector('#coment_calidad_1 textarea')?.value || '',
         coment_calidad_2: document.querySelector('#coment_calidad_2 textarea')?.value || ''
       };
 
-      const url = "https://35.208.11.175/webhook/94d5ddbf-b78d-4c54-9d6c-52ca809e3def";
+      const url = "https://n8n-latest-2ypl.onrender.com/webhook-test/00f25c8a-9265-42f2-b5e2-b23182bdaa38";
 
       try {
         const response = await fetch(url, {
@@ -335,24 +292,14 @@
         if (result.status === "ok") {
           msg.innerHTML = `
             <div style="text-align:center;">
-              <h3>¡Gracias por su participación!</h3>
+              <h3>✅ ¡Gracias por su participación!</h3>
               <p>Sus respuestas fueron registradas correctamente.<br>
               Su opinión es muy valiosa y nos ayuda a mejorar continuamente.</p>
-              <p><strong>Atentamente,<br>El equipo de Estudio Quineche</strong></p>
             </div>`;
-        } else {
-          throw new Error(result.message || "Error desconocido");
-        }
+        } else throw new Error("Error al enviar");
       } catch (err) {
         loading.classList.add('hidden');
-        msg.innerHTML = `
-          <p style="color:red; text-align:center;">
-            ❌ Ocurrió un error al enviar sus respuestas.<br>
-            <small>${err.message}</small>
-          </p>`;
-        form.classList.remove('hidden');
-      } finally {
-        btnEnviar.disabled = false;
+        msg.innerHTML = `<p style="color:red; text-align:center;">❌ Error: ${err.message}</p>`;
       }
     });
   </script>
