@@ -267,11 +267,14 @@
 
   <script>
     // Generar botones 0–10
-    ["npsOptions","trabajosOptions","cumplimientoOptions","asesoramientoOptions","tiempoOptions","amabilidad2Options","calidadOptions"]
-      .forEach(id=>{
-        const c=document.getElementById(id);
-        if(c)c.innerHTML=Array.from({length:11},(_,i)=>`<label class='rating-option'><input type='radio' name='${id}' value='${i}'><span>${i}</span></label>`).join('');
-      });
+    ["npsOptions", "trabajosOptions", "cumplimientoOptions", "asesoramientoOptions", "tiempoOptions", "amabilidad2Options", "calidadOptions"]
+  .forEach(id => {
+    const c = document.getElementById(id);
+    if (c)
+      c.innerHTML = Array.from({ length: 11 }, (_, i) =>
+        `<label class='rating-option'><input type='radio' name='${id}' value='${i}'><span>${i}</span></label>`
+      ).join('');
+  });
 
     const params=new URLSearchParams(window.location.search);
     document.getElementById('nombre').innerText=params.get('nombre')||'cliente';
