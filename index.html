@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Encuesta – Estudio Quineche</title>
+<title>EncuestaS – Estudio Quineche</title>
 <style>
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -90,10 +90,10 @@ button:hover{background:#372fd4;transform:scale(1.02);}
  <!-- SECCIÓN 1 -->
  <div id="sec1" class="section">
   <label>¿Qué tan probable es que recomiende al Estudio Quineche a otra empresa?</label>
-  <div class="rating-options" id="npsOptions"></div>
-  <div id="preg0_6" class="hidden"><label>¿Qué aspectos no te agradan para calificarlo así?</label><textarea name="comentario_0_6" rows="3"></textarea></div>
-  <div id="preg7_8" class="hidden"><label>¿Qué aspectos consideras que debe mejorar el Estudio Quineche?</label><textarea name="comentario_7_8" rows="3"></textarea></div>
-  <div id="preg9_10" class="hidden"><label>¿Qué aspectos resaltan para que recomiendes al Estudio Quineche?</label><textarea name="comentario_9_10" rows="3"></textarea></div>
+  <div class="rating-options" id="recomendacionOptions"></div>
+  <div id="recPreg0_6" class="hidden"><label>¿Qué aspectos no te agradan para calificarlo así?</label><textarea name="comentario_0_6" rows="3"></textarea></div>
+  <div id="recPreg7_8" class="hidden"><label>¿Qué aspectos consideras que debe mejorar el Estudio Quineche para que lo puedas recomendar más?</label><textarea name="comentario_7_8" rows="3"></textarea></div>
+  <div id="recPreg9_10" class="hidden"><label>¿Qué aspectos resaltan para que recomiendes al Estudio Quineche?</label><textarea name="comentario_9_10" rows="3"></textarea></div>
   <button type="button" id="btn1" class="hidden">Continuar ➜</button>
  </div>
 
@@ -107,7 +107,7 @@ button:hover{background:#372fd4;transform:scale(1.02);}
 
  <!-- SECCIÓN 3 -->
  <div id="sec3" class="section hidden">
-  <label>¿Los entregables cumplen con sus expectativas?</label>
+  <label>¿Los entregables (trabajos y avances pactados) cumplen con sus expectativas?</label>
   <div class="rating-options" id="cumplimientoOptions"></div>
   <div id="coment_cumplimiento" class="hidden"><label>Coméntanos por qué calificó así</label><textarea rows="3"></textarea></div>
   <button type="button" id="btn3" class="hidden">Continuar ➜</button>
@@ -132,19 +132,12 @@ button:hover{background:#372fd4;transform:scale(1.02);}
  <!-- SECCIÓN 6 -->
  <div id="sec6" class="section hidden">
   <label>Respecto a la AMABILIDAD y DISPOSICIÓN de nuestro personal</label>
-  <div class="rating-options" id="amabilidad2Options"></div>
-  <div id="coment_amabilidad2" class="hidden"><label>Coméntanos por qué calificó así</label><textarea rows="3"></textarea></div>
-  <button type="button" id="btn6" class="hidden">Continuar ➜</button>
- </div>
-
- <!-- SECCIÓN 7 -->
- <div id="sec7" class="section hidden">
-  <label>Calidad del servicio general</label>
-  <div class="rating-options" id="calidadOptions"></div>
-  <div id="coment_calidad_1" class="hidden"><label>¿Qué mejoras sugeriría?</label><textarea rows="3"></textarea></div>
-  <div id="coment_calidad_2" class="hidden"><label>¿Qué nuevos u otros servicios le gustaría?</label><textarea rows="3"></textarea></div>
+  <div class="rating-options" id="amabilidadOptions"></div>
+  <div id="coment_amabilidad" class="hidden"><label>Coméntanos por qué calificó así</label><textarea rows="3"></textarea></div>
+  <div id="coment_servicios" class="hidden"><label>¿Qué nuevos u otros servicios TE GUSTARÍA QUE OFREZCA EL ESTUDIO QUINECHE?</label><textarea rows="3"></textarea></div>
   <button type="submit" id="btnEnviar" class="hidden">Enviar respuestas</button>
  </div>
+  
 </form>
 
 <p id="msg" class="msg"></p>
@@ -154,7 +147,7 @@ button:hover{background:#372fd4;transform:scale(1.02);}
 
 <script>
 // ✅ Generar botones 0–10 correctamente
-["npsOptions","trabajosOptions","cumplimientoOptions","asesoramientoOptions","tiempoOptions","amabilidad2Options","calidadOptions"]
+["recomendacionOptions","trabajosOptions","cumplimientoOptions","asesoramientoOptions","tiempoOptions","amabilidad2Options","calidadOptions"]
  .forEach(id=>{
    const c=document.getElementById(id);
    if(c) c.innerHTML=Array.from({length:11},(_,i)=>
@@ -167,12 +160,12 @@ const params=new URLSearchParams(window.location.search);
 document.getElementById('nombre').innerText=params.get('nombre')||'cliente';
 
 // Sección 1: mostrar textarea según rango
-document.querySelectorAll('#npsOptions input').forEach(r=>{
+document.querySelectorAll('#recomendacionOptions input').forEach(r=>{
  r.addEventListener('change',e=>{
    const val=parseInt(e.target.value);
-   const p0_6=document.getElementById('preg0_6'),
-         p7_8=document.getElementById('preg7_8'),
-         p9_10=document.getElementById('preg9_10');
+   const p0_6=document.getElementById('recPreg0_6'),
+         p7_8=document.getElementById('recPreg7_8'),
+         p9_10=document.getElementById('recPreg9_10');
    [p0_6,p7_8,p9_10].forEach(p=>p.classList.add('hidden'));
    const active=val<=6?p0_6:val<=8?p7_8:p9_10;
    active.classList.remove('hidden');
@@ -198,7 +191,6 @@ setupSection("trabajosOptions","coment_trabajos","btn2");
 setupSection("cumplimientoOptions","coment_cumplimiento","btn3");
 setupSection("asesoramientoOptions","coment_asesoramiento","btn4");
 setupSection("tiempoOptions","coment_tiempo","btn5");
-setupSection("amabilidad2Options","coment_amabilidad2","btn6");
 
 // Última sección (dos textareas)
 function setupSectionFinal(optionsId,ids,btnId){
@@ -217,7 +209,7 @@ function setupSectionFinal(optionsId,ids,btnId){
    });
  });
 }
-setupSectionFinal("calidadOptions",["coment_calidad_1","coment_calidad_2"],"btnEnviar");
+setupSectionFinal("amabilidadOptions",["coment_amabilidad","coment_servicios"],"btnEnviar");
 
 // Navegación entre secciones
 function next(a,b){
