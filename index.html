@@ -68,7 +68,7 @@ button:hover{background:#372fd4;transform:scale(1.02);}
  <div class="spinner" style="border:5px solid #eee;border-top:5px solid #4b3df5;border-radius:50%;width:70px;height:70px;margin:0 auto;animation:spin 1s linear infinite;"></div>
 </div>
 
-<h2>EncuestaS de PercepciónS – Estudio Quineche</h2>
+<h2>EncuestaS de Percepción – Estudio Quineche</h2>
 <div id="intro">
   <p><strong>Estimado(a) <span id="nombre"></span>:</strong></p>
   <p>
@@ -94,55 +94,85 @@ button:hover{background:#372fd4;transform:scale(1.02);}
   <button type="button" id="btn1" class="hidden">Continuar ➜</button>
  </div>
 
- <!-- SECCIÓN 2 -->
- <div id="sec2" class="section hidden">
+<!-- SECCIÓN 2 -->
+<div id="sec2" class="section hidden">
   <label>Respecto al cumplimiento de los TRABAJOS y AVANCES ENTREGABLES según el servicio pactado</label>
-  <div class="rating-options" id="trabajosOptions"></div>
-  <div id="coment_trabajos" class="hidden"><label>Coméntanos por qué calificó así</label><textarea rows="3"></textarea></div>
-  <button type="button" id="btn2" class="hidden">Continuar ➜</button>
- </div>
 
- <!-- SECCIÓN 3 -->
- <div id="sec3" class="section hidden">
+  <div class="rating-options" id="trabajosOptions"></div>
+
+  <div id="coment_trabajos" class="hidden">
+    <label>Coméntanos por qué calificó así</label>
+    <textarea name="coment_trabajos" rows="3"></textarea>
+  </div>
+
+  <button type="button" id="btn2" class="hidden">Continuar ➜</button>
+</div>
+
+
+<!-- SECCIÓN 3 -->
+<div id="sec3" class="section hidden">
   <label>¿Los entregables (trabajos y avances pactados) cumplen con sus expectativas?</label>
+
   <div class="rating-options" id="cumplimientoOptions"></div>
-  <div id="coment_cumplimiento" class="hidden"><label>Coméntanos por qué calificó así</label><textarea rows="3"></textarea></div>
+
+  <div id="coment_cumplimiento" class="hidden">
+    <label>Coméntanos por qué calificó así</label>
+    <textarea name="coment_cumplimiento" rows="3"></textarea>
+  </div>
+
   <button type="button" id="btn3" class="hidden">Continuar ➜</button>
- </div>
+</div>
+
 
  <!-- SECCIÓN 4 -->
- <div id="sec4" class="section hidden">
+<div id="sec4" class="section hidden">
   <label>Respecto a la gestión y conocimiento de nuestro personal en el ASESORAMIENTO del servicio pactado</label>
-  <div class="rating-options" id="asesoramientoOptions"></div>
-  <div id="coment_asesoramiento" class="hidden"><label>Coméntanos por qué calificó así</label><textarea rows="3"></textarea></div>
-  <button type="button" id="btn4" class="hidden">Continuar ➜</button>
- </div>
 
- <!-- SECCIÓN 5 -->
- <div id="sec5" class="section hidden">
+  <div class="rating-options" id="asesoramientoOptions"></div>
+
+  <div id="coment_asesoramiento" class="hidden">
+    <label>Coméntanos por qué calificó así</label>
+    <textarea name="coment_asesoramiento" rows="3"></textarea>
+  </div>
+
+  <button type="button" id="btn4" class="hidden">Continuar ➜</button>
+</div>
+
+
+<!-- SECCIÓN 5 -->
+<div id="sec5" class="section hidden">
   <label>Respecto al TIEMPO DE RESPUESTA ante requerimientos</label>
+
   <div class="rating-options" id="tiempoOptions"></div>
-  <div id="coment_tiempo" class="hidden"><label>Coméntanos por qué calificó así</label><textarea rows="3"></textarea></div>
+
+  <div id="coment_tiempo" class="hidden">
+    <label>Coméntanos por qué calificó así</label>
+    <textarea name="coment_tiempo" rows="3"></textarea>
+  </div>
+
   <button type="button" id="btn5" class="hidden">Continuar ➜</button>
- </div>
+</div>
+
 
 <!-- SECCIÓN 6 -->
 <div id="sec6" class="section hidden">
   <label>Respecto a la AMABILIDAD y DISPOSICIÓN de nuestro personal</label>
+
   <div class="rating-options" id="amabilidadOptions"></div>
 
   <div id="coment_amabilidad" class="hidden">
     <label>Coméntanos por qué calificó así</label>
-    <textarea rows="3"></textarea>
+    <textarea name="coment_amabilidad" rows="3"></textarea>
   </div>
 
   <div id="coment_servicios" class="hidden">
-    <label>¿Qué nuevos u otros servicios TE GUSTARÍA QUE OFREZCA EL ESTUDIO QUINECHE?</label>
-    <textarea rows="3"></textarea>
+    <label>¿Qué nuevos u otros servicios te gustaría que ofrezca el Estudio Quineche?</label>
+    <textarea name="coment_servicios" rows="3"></textarea>
   </div>
 
   <button type="submit" id="btnEnviar" class="hidden">Enviar respuestas</button>
 </div>
+
 
   
 </form>
