@@ -129,14 +129,24 @@ button:hover{background:#372fd4;transform:scale(1.02);}
   <button type="button" id="btn5" class="hidden">Continuar ➜</button>
  </div>
 
- <!-- SECCIÓN 6 -->
- <div id="sec6" class="section hidden">
+<!-- SECCIÓN 6 -->
+<div id="sec6" class="section hidden">
   <label>Respecto a la AMABILIDAD y DISPOSICIÓN de nuestro personal</label>
   <div class="rating-options" id="amabilidadOptions"></div>
-  <div id="coment_amabilidad" class="hidden"><label>Coméntanos por qué calificó así</label><textarea rows="3"></textarea></div>
-  <div id="coment_servicios" class="hidden"><label>¿Qué nuevos u otros servicios TE GUSTARÍA QUE OFREZCA EL ESTUDIO QUINECHE?</label><textarea rows="3"></textarea></div>
+
+  <div id="coment_amabilidad" class="hidden">
+    <label>Coméntanos por qué calificó así</label>
+    <textarea rows="3"></textarea>
+  </div>
+
+  <div id="coment_servicios" class="hidden">
+    <label>¿Qué nuevos u otros servicios TE GUSTARÍA QUE OFREZCA EL ESTUDIO QUINECHE?</label>
+    <textarea rows="3"></textarea>
+  </div>
+
   <button type="submit" id="btnEnviar" class="hidden">Enviar respuestas</button>
- </div>
+</div>
+
   
 </form>
 
@@ -191,7 +201,6 @@ setupSection("trabajosOptions","coment_trabajos","btn2");
 setupSection("cumplimientoOptions","coment_cumplimiento","btn3");
 setupSection("asesoramientoOptions","coment_asesoramiento","btn4");
 setupSection("tiempoOptions","coment_tiempo","btn5");
-setupSection("amabilidadOptions","coment_amabilidad","btn5");
 
 // Última sección (dos textareas)
 function setupSectionFinal(optionsId,ids,btnId){
@@ -210,7 +219,7 @@ function setupSectionFinal(optionsId,ids,btnId){
    });
  });
 }
-setupSectionFinal("amabilidadOptions",["coment_amabilidad","coment_servicios"],"btnEnviar");
+setupSectionFinal("amabilidadOptions", ["coment_amabilidad", "coment_servicios"], "btnEnviar");
 
 // Navegación entre secciones
 function next(a,b){
