@@ -55,10 +55,7 @@ button:hover{background:#372fd4;transform:scale(1.02);}
 @keyframes spin{0%{transform:rotate(0);}100%{transform:rotate(360deg);}}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 @keyframes fadeOut{from{opacity:1;}to{opacity:0;}}
-.blur-bg{
- filter:blur(4px);
- transition:filter .4s ease;
-}
+
 </style>
 </head>
 <body>
@@ -71,7 +68,7 @@ button:hover{background:#372fd4;transform:scale(1.02);}
  <div class="spinner" style="border:5px solid #eee;border-top:5px solid #4b3df5;border-radius:50%;width:70px;height:70px;margin:0 auto;animation:spin 1s linear infinite;"></div>
 </div>
 
-<h2>Encuesta de Percepción – Estudio Quineche</h2>
+<h2>EncuestaS de Percepción – Estudio Quineche</h2>
 <div id="intro">
   <p><strong>Estimado(a) <span id="nombre"></span>:</strong></p>
   <p>
@@ -157,7 +154,7 @@ button:hover{background:#372fd4;transform:scale(1.02);}
 
 <script>
 // ✅ Generar botones 0–10 correctamente
-["recomendacionOptions","trabajosOptions","cumplimientoOptions","asesoramientoOptions","tiempoOptions","amabilidad2Options","calidadOptions"]
+["recomendacionOptions","trabajosOptions","cumplimientoOptions","asesoramientoOptions","tiempoOptions","amabilidadOptions","calidadOptions"]
  .forEach(id=>{
    const c=document.getElementById(id);
    if(c) c.innerHTML=Array.from({length:11},(_,i)=>
@@ -243,7 +240,6 @@ document.getElementById('form').addEventListener('submit',async e=>{
 
  form.style.animation='fadeOut .5s forwards';
  intro.style.animation='fadeOut .5s forwards';
- main.classList.add('blur-bg');
  setTimeout(()=>{
    form.classList.add('hidden');
    intro.classList.add('hidden');
@@ -264,7 +260,6 @@ document.getElementById('form').addEventListener('submit',async e=>{
    loading.style.animation='fadeOut .6s forwards';
    setTimeout(()=>{
      loading.classList.add('hidden');
-     main.classList.remove('blur-bg');
      msg.innerHTML=`<div style="text-align:center;animation:fadeIn 1s;">
        <h3>¡Gracias por su participación!</h3>
        <p>Sus respuestas fueron registradas correctamente.<br>Su opinión es muy valiosa y nos ayuda a mejorar continuamente.</p>
@@ -273,7 +268,6 @@ document.getElementById('form').addEventListener('submit',async e=>{
    },500);
  }catch(err){
    loading.classList.add('hidden');
-   main.classList.remove('blur-bg');
    msg.innerHTML=`<p style="color:red;text-align:center;">❌ Error: ${err.message}</p>`;
    form.classList.remove('hidden');
  }
