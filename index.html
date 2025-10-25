@@ -1,376 +1,272 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Encuestas – Estudio Quineche</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(180deg, #e6e1f8, #f5f4fb);
-      margin: 0;
-      padding: 0;
-    }
-
-    .container {
-      max-width: 750px;
-      margin: 40px auto;
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-    }
-
-    .header img {
-      width: 100%;
-      display: block;
-    }
-
-    .content {
-      padding: 40px 30px;
-      animation: fadeIn 0.6s ease-in-out;
-    }
-
-    @media (max-width: 480px) {
-      .content {
-        padding: 20px 10px;
-      }
-    }
-
-    h2 {
-      text-align: center;
-      color: #2e2b57;
-      margin-top: 10px;
-      font-size: 26px;
-    }
-
-    p {
-      font-size: 16px;
-      color: #333;
-      line-height: 1.6;
-    }
-
-    label {
-      display: block;
-      color: #333;
-      font-weight: 600;
-      margin: 18px 0 8px;
-    }
-
-    textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 6px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 15px;
-      transition: 0.3s;
-      resize: vertical;
-      box-sizing: border-box;
-    }
-
-    textarea:focus {
-      outline: none;
-      border-color: #6b5cff;
-      box-shadow: 0 0 0 3px rgba(75, 61, 245, 0.2);
-    }
-
-    button {
-      display: block;
-      width: 100%;
-      background-color: #4b3df5;
-      color: white;
-      border: none;
-      padding: 14px;
-      font-size: 17px;
-      border-radius: 10px;
-      cursor: pointer;
-      margin-top: 25px;
-      font-weight: 600;
-      transition: all 0.3s;
-    }
-
-    button:hover {
-      background-color: #372fd4;
-      transform: scale(1.02);
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .footer {
-      text-align: center;
-      padding: 20px;
-      color: #777;
-      font-size: 14px;
-    }
-
-    .section {
-      border: 1px solid #e5e5e5;
-      border-left: 6px solid #4b3df5;
-      border-radius: 10px;
-      padding: 25px 20px;
-      margin-top: 25px;
-      background-color: #fff;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-      transition: all 0.3s ease;
-      animation: fadeIn 0.6s ease-in-out;
-    }
-
-    .rating-options {
-      display: grid;
-      grid-template-columns: repeat(11, 1fr);
-      gap: 6px;
-      width: 100%;
-    }
-
-    .rating-option input {
-      display: none;
-    }
-
-    .rating-option span {
-      display: inline-block;
-      width: 100%;
-      text-align: center;
-      padding: 10px 0;
-      background: #fff;
-      border: 1.5px solid #ccc;
-      border-radius: 6px;
-      color: #333;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .rating-option input:checked + span {
-      background: #4b3df5;
-      color: white;
-      border-color: #4b3df5;
-      font-weight: 600;
-    }
-
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes fadeOut {
-      from {
-        opacity: 1;
-      }
-
-      to {
-        opacity: 0;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encuesta – Estudio Quineche</title>
+<style>
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(180deg,#e6e1f8,#f5f4fb);
+  margin:0;padding:0;
+}
+.container {
+  max-width:750px;margin:40px auto;
+  background:#fff;border-radius:16px;
+  box-shadow:0 6px 18px rgba(0,0,0,.1);
+  overflow:hidden;
+}
+.header img{width:100%;display:block;}
+.content{padding:40px 30px;animation:fadeIn .6s ease-in-out;}
+@media(max-width:480px){.content{padding:20px 10px;}}
+h2{text-align:center;color:#2e2b57;margin-top:10px;font-size:26px;}
+p{font-size:16px;color:#333;line-height:1.6;}
+label{display:block;color:#333;font-weight:600;margin:18px 0 8px;}
+textarea{
+ width:100%;padding:10px;margin-top:6px;border-radius:8px;
+ border:1px solid #ccc;font-size:15px;transition:.3s;resize:vertical;box-sizing:border-box;
+}
+textarea:focus{outline:none;border-color:#6b5cff;box-shadow:0 0 0 3px rgba(75,61,245,.2);}
+button{
+ display:block;width:100%;background:#4b3df5;color:#fff;border:none;
+ padding:14px;font-size:17px;border-radius:10px;cursor:pointer;
+ margin-top:25px;font-weight:600;transition:all .3s;
+}
+button:hover{background:#372fd4;transform:scale(1.02);}
+.hidden{display:none;}
+.footer{text-align:center;padding:20px;color:#777;font-size:14px;}
+.section{
+ border:1px solid #e5e5e5;border-left:6px solid #4b3df5;
+ border-radius:10px;padding:25px 20px;margin-top:25px;background:#fff;
+ box-shadow:0 2px 6px rgba(0,0,0,.05);animation:fadeIn .6s ease-in-out;
+}
+.rating-options{
+ display:grid;grid-template-columns:repeat(11,1fr);gap:6px;width:100%;
+}
+.rating-option input{display:none;}
+.rating-option span{
+ display:inline-block;width:100%;text-align:center;padding:10px 0;
+ background:#fff;border:1.5px solid #ccc;border-radius:6px;color:#333;cursor:pointer;transition:all .2s ease;
+}
+.rating-option span:hover{border-color:#6b5cff;background:#f0edff;}
+.rating-option input:checked+span{
+ background:#4b3df5;color:#fff;border-color:#4b3df5;font-weight:600;box-shadow:0 0 6px rgba(75,61,245,.4);
+}
+@keyframes spin{0%{transform:rotate(0);}100%{transform:rotate(360deg);}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeOut{from{opacity:1;}to{opacity:0;}}
+.blur-bg{
+ filter:blur(4px);
+ transition:filter .4s ease;
+}
+</style>
 </head>
-
 <body>
-  <div class="container">
-    <div class="header">
-      <img src="banner_completo.jpg" alt="Estudio Quineche & Asociados">
-    </div>
+<div class="container">
+<div class="header"><img src="banner_completo.jpg" alt="Estudio Quineche & Asociados"></div>
+<div class="content" id="mainContent">
 
-    <div class="content">
-      <!-- Pantalla de carga -->
-      <div id="loading" class="hidden" style="text-align:center; padding:60px 20px;">
-        <div style="font-size:1.3rem; color:#4b3df5; font-weight:600; margin-bottom:20px;">⏳ Enviando tus respuestas...</div>
-        <div class="spinner" style="border:5px solid #eee; border-top:5px solid #4b3df5; border-radius:50%; width:70px; height:70px; margin:0 auto; animation:spin 1s linear infinite;"></div>
-      </div>
+<div id="loading" class="hidden" style="text-align:center;padding:60px 20px;">
+ <div style="font-size:1.3rem;color:#4b3df5;font-weight:600;margin-bottom:20px;">⏳ Enviando tus respuestas...</div>
+ <div class="spinner" style="border:5px solid #eee;border-top:5px solid #4b3df5;border-radius:50%;width:70px;height:70px;margin:0 auto;animation:spin 1s linear infinite;"></div>
+</div>
 
-      <h2>Encuesta de Percepción – Estudio Quineche</h2>
+<h2>Encuesta de Percepción – Estudio Quineche</h2>
+<div id="intro">
+ <p><strong>Estimado(a) <span id="nombre"></span>:</strong></p>
+ <p>Tu opinión es muy importante para nosotros. No existen respuestas buenas ni malas, solo sinceras. Gracias por tomarte unos minutos para ayudarnos a mejorar 💬</p>
+</div>
 
-      <div id="intro">
-        <p><strong>Estimado(a) <span id="nombre"></span>:</strong></p>
-        <p>Tu opinión es muy importante para nosotros. No existen respuestas buenas ni malas, solo sinceras. Gracias por tomarte unos minutos para ayudarnos a mejorar 💬</p>
-      </div>
+<form id="form">
+ <!-- SECCIÓN 1 -->
+ <div id="sec1" class="section">
+  <label>¿Qué tan probable es que recomiende al Estudio Quineche a otra empresa?</label>
+  <div class="rating-options" id="npsOptions"></div>
+  <div id="preg0_6" class="hidden"><label>¿Qué aspectos no te agradan para calificarlo así?</label><textarea name="comentario_0_6" rows="3"></textarea></div>
+  <div id="preg7_8" class="hidden"><label>¿Qué aspectos consideras que debe mejorar el Estudio Quineche?</label><textarea name="comentario_7_8" rows="3"></textarea></div>
+  <div id="preg9_10" class="hidden"><label>¿Qué aspectos resaltan para que recomiendes al Estudio Quineche?</label><textarea name="comentario_9_10" rows="3"></textarea></div>
+  <button type="button" id="btn1" class="hidden">Continuar ➜</button>
+ </div>
 
-      <form id="form">
-        <!-- 🟣 Secciones 1–7 (idénticas a tu versión original) -->
-        <div id="sec1" class="section">
-          <label>¿Qué tan probable es que recomiende al Estudio Quineche a otra empresa?</label>
-          <div class="rating-options" id="npsOptions"></div>
-          <div id="preg0_6" class="hidden"><label>¿Qué aspectos no te agradan para calificarlo así?</label><textarea name="comentario_0_6" rows="3"></textarea></div>
-          <div id="preg7_8" class="hidden"><label>¿Qué aspectos consideras que debe mejorar el Estudio Quineche?</label><textarea name="comentario_7_8" rows="3"></textarea></div>
-          <div id="preg9_10" class="hidden"><label>¿Qué aspectos resaltan para que recomiendes al Estudio Quineche?</label><textarea name="comentario_9_10" rows="3"></textarea></div>
-          <button type="button" id="btn1" class="hidden">Continuar ➜</button>
-        </div>
+ <!-- SECCIÓN 2 -->
+ <div id="sec2" class="section hidden">
+  <label>Respecto al cumplimiento de los TRABAJOS y AVANCES ENTREGABLES según el servicio pactado</label>
+  <div class="rating-options" id="trabajosOptions"></div>
+  <div id="coment_trabajos" class="hidden"><label>Coméntanos por qué calificó así</label><textarea rows="3"></textarea></div>
+  <button type="button" id="btn2" class="hidden">Continuar ➜</button>
+ </div>
 
-        <div id="sec2" class="section hidden">
-          <label>Respecto al cumplimiento de los TRABAJOS y AVANCES ENTREGABLES según el servicio pactado</label>
-          <div class="rating-options" id="trabajosOptions"></div>
-          <div id="coment_trabajos" class="hidden"><label>Coméntanos por qué calificó así</label><textarea rows="3"></textarea></div>
-          <button type="button" id="btn2" class="hidden">Continuar ➜</button>
-        </div>
+ <!-- SECCIÓN 3 -->
+ <div id="sec3" class="section hidden">
+  <label>¿Los entregables cumplen con sus expectativas?</label>
+  <div class="rating-options" id="cumplimientoOptions"></div>
+  <div id="coment_cumplimiento" class="hidden"><label>Coméntanos por qué calificó así</label><textarea rows="3"></textarea></div>
+  <button type="button" id="btn3" class="hidden">Continuar ➜</button>
+ </div>
 
-        <div id="sec3" class="section hidden">
-          <label>¿Los entregables cumplen con sus expectativas?</label>
-          <div class="rating-options" id="cumplimientoOptions"></div>
-          <div id="coment_cumplimiento" class="hidden"><label>Coméntanos por qué calificó así</label><textarea rows="3"></textarea></div>
-          <button type="button" id="btn3" class="hidden">Continuar ➜</button>
-        </div>
+ <!-- SECCIÓN 4 -->
+ <div id="sec4" class="section hidden">
+  <label>Respecto a la gestión y conocimiento de nuestro personal en el ASESORAMIENTO del servicio pactado</label>
+  <div class="rating-options" id="asesoramientoOptions"></div>
+  <div id="coment_asesoramiento" class="hidden"><label>Coméntanos por qué calificó así</label><textarea rows="3"></textarea></div>
+  <button type="button" id="btn4" class="hidden">Continuar ➜</button>
+ </div>
 
-        <div id="sec4" class="section hidden">
-          <label>Respecto a la gestión y conocimiento de nuestro personal en el ASESORAMIENTO del servicio pactado</label>
-          <div class="rating-options" id="asesoramientoOptions"></div>
-          <div id="coment_asesoramiento" class="hidden"><label>Coméntanos por qué calificó así</label><textarea rows="3"></textarea></div>
-          <button type="button" id="btn4" class="hidden">Continuar ➜</button>
-        </div>
+ <!-- SECCIÓN 5 -->
+ <div id="sec5" class="section hidden">
+  <label>Respecto al TIEMPO DE RESPUESTA ante requerimientos</label>
+  <div class="rating-options" id="tiempoOptions"></div>
+  <div id="coment_tiempo" class="hidden"><label>Coméntanos por qué calificó así</label><textarea rows="3"></textarea></div>
+  <button type="button" id="btn5" class="hidden">Continuar ➜</button>
+ </div>
 
-        <div id="sec5" class="section hidden">
-          <label>Respecto al TIEMPO DE RESPUESTA ante requerimientos</label>
-          <div class="rating-options" id="tiempoOptions"></div>
-          <div id="coment_tiempo" class="hidden"><label>Coméntanos por qué calificó así</label><textarea rows="3"></textarea></div>
-          <button type="button" id="btn5" class="hidden">Continuar ➜</button>
-        </div>
+ <!-- SECCIÓN 6 -->
+ <div id="sec6" class="section hidden">
+  <label>Respecto a la AMABILIDAD y DISPOSICIÓN de nuestro personal</label>
+  <div class="rating-options" id="amabilidad2Options"></div>
+  <div id="coment_amabilidad2" class="hidden"><label>Coméntanos por qué calificó así</label><textarea rows="3"></textarea></div>
+  <button type="button" id="btn6" class="hidden">Continuar ➜</button>
+ </div>
 
-        <div id="sec6" class="section hidden">
-          <label>Respecto a la AMABILIDAD y DISPOSICIÓN de nuestro personal</label>
-          <div class="rating-options" id="amabilidad2Options"></div>
-          <div id="coment_amabilidad2" class="hidden"><label>Coméntanos por qué calificó así</label><textarea rows="3"></textarea></div>
-          <button type="button" id="btn6" class="hidden">Continuar ➜</button>
-        </div>
+ <!-- SECCIÓN 7 -->
+ <div id="sec7" class="section hidden">
+  <label>Calidad del servicio general</label>
+  <div class="rating-options" id="calidadOptions"></div>
+  <div id="coment_calidad_1" class="hidden"><label>¿Qué mejoras sugeriría?</label><textarea rows="3"></textarea></div>
+  <div id="coment_calidad_2" class="hidden"><label>¿Qué nuevos u otros servicios le gustaría?</label><textarea rows="3"></textarea></div>
+  <button type="submit" id="btnEnviar" class="hidden">Enviar respuestas</button>
+ </div>
+</form>
 
-        <div id="sec7" class="section hidden">
-          <label>Calidad del servicio general</label>
-          <div class="rating-options" id="calidadOptions"></div>
-          <div id="coment_calidad_1" class="hidden"><label>¿Qué mejoras sugeriría?</label><textarea rows="3"></textarea></div>
-          <div id="coment_calidad_2" class="hidden"><label>¿Qué nuevos u otros servicios le gustaría?</label><textarea rows="3"></textarea></div>
-          <button type="submit" id="btnEnviar" class="hidden">Enviar respuestas</button>
-        </div>
-      </form>
+<p id="msg" class="msg"></p>
+</div>
+<div class="footer">© 2025 Estudio Quineche | Todos los derechos reservados</div>
+</div>
 
-      <p id="msg" class="msg"></p>
-    </div>
+<script>
+// ✅ Generar botones 0–10 correctamente
+["npsOptions","trabajosOptions","cumplimientoOptions","asesoramientoOptions","tiempoOptions","amabilidad2Options","calidadOptions"]
+ .forEach(id=>{
+   const c=document.getElementById(id);
+   if(c) c.innerHTML=Array.from({length:11},(_,i)=>
+     `<label class='rating-option'><input type='radio' name='${id}' value='${i}'><span>${i}</span></label>`
+   ).join('');
+ });
 
-    <div class="footer">© 2025 Estudio Quineche | Todos los derechos reservados</div>
-  </div>
+// Mostrar nombre
+const params=new URLSearchParams(window.location.search);
+document.getElementById('nombre').innerText=params.get('nombre')||'cliente';
 
-  <script>
-    // Generar botones 0–10
-    ["npsOptions", "trabajosOptions", "cumplimientoOptions", "asesoramientoOptions", "tiempoOptions", "amabilidad2Options", "calidadOptions"]
-  .forEach(id => {
-    const c = document.getElementById(id);
-    if (c)
-      c.innerHTML = Array.from({ length: 11 }, (_, i) =>
-        `<label class='rating-option'><input type='radio' name='${id}' value='${i}'><span>${i}</span></label>`
-      ).join('');
-  });
+// Sección 1: mostrar textarea según rango
+document.querySelectorAll('#npsOptions input').forEach(r=>{
+ r.addEventListener('change',e=>{
+   const val=parseInt(e.target.value);
+   const p0_6=document.getElementById('preg0_6'),
+         p7_8=document.getElementById('preg7_8'),
+         p9_10=document.getElementById('preg9_10');
+   [p0_6,p7_8,p9_10].forEach(p=>p.classList.add('hidden'));
+   const active=val<=6?p0_6:val<=8?p7_8:p9_10;
+   active.classList.remove('hidden');
+   const t=active.querySelector('textarea');
+   t.addEventListener('input',()=>{if(t.value.trim().length>3)document.getElementById('btn1').classList.remove('hidden');});
+ });
+});
 
-    const params=new URLSearchParams(window.location.search);
-    document.getElementById('nombre').innerText=params.get('nombre')||'cliente';
+// Función genérica
+function setupSection(optionsId,comentId,btnId){
+ const radios=document.querySelectorAll(`#${optionsId} input`);
+ const div=document.getElementById(comentId);
+ const btn=document.getElementById(btnId);
+ radios.forEach(r=>{
+   r.addEventListener('change',()=>{
+     div.classList.remove('hidden');
+     const t=div.querySelector('textarea');
+     t.addEventListener('input',()=>{if(t.value.trim().length>3)btn.classList.remove('hidden');});
+   });
+ });
+}
+setupSection("trabajosOptions","coment_trabajos","btn2");
+setupSection("cumplimientoOptions","coment_cumplimiento","btn3");
+setupSection("asesoramientoOptions","coment_asesoramiento","btn4");
+setupSection("tiempoOptions","coment_tiempo","btn5");
+setupSection("amabilidad2Options","coment_amabilidad2","btn6");
 
-    function next(a,b){
-      const old=document.getElementById(a);
-      const nxt=document.getElementById(b);
-      old.classList.add('hidden');
-      nxt.classList.remove('hidden');
-      nxt.scrollIntoView({behavior:'smooth'});
-    }
+// Última sección (dos textareas)
+function setupSectionFinal(optionsId,ids,btnId){
+ const radios=document.querySelectorAll(`#${optionsId} input`);
+ const divs=ids.map(i=>document.getElementById(i));
+ const btn=document.getElementById(btnId);
+ radios.forEach(r=>{
+   r.addEventListener('change',()=>{
+     divs.forEach(d=>d.classList.remove('hidden'));
+     const ts=divs.map(d=>d.querySelector('textarea'));
+     ts.forEach(t=>{
+       t.addEventListener('input',()=>{
+         if(ts.every(x=>x.value.trim().length>3))btn.classList.remove('hidden');
+       });
+     });
+   });
+ });
+}
+setupSectionFinal("calidadOptions",["coment_calidad_1","coment_calidad_2"],"btnEnviar");
 
-    document.getElementById('btn1').addEventListener('click',()=>next('sec1','sec2'));
-    document.getElementById('btn2').addEventListener('click',()=>next('sec2','sec3'));
-    document.getElementById('btn3').addEventListener('click',()=>next('sec3','sec4'));
-    document.getElementById('btn4').addEventListener('click',()=>next('sec4','sec5'));
-    document.getElementById('btn5').addEventListener('click',()=>next('sec5','sec6'));
-    document.getElementById('btn6').addEventListener('click',()=>next('sec6','sec7'));
+// Navegación entre secciones
+function next(a,b){
+ document.getElementById(a).classList.add('hidden');
+ const nxt=document.getElementById(b);
+ nxt.classList.remove('hidden');
+ nxt.scrollIntoView({behavior:'smooth'});
+}
+['1','2','3','4','5','6'].forEach(i=>{
+ document.getElementById(`btn${i}`).addEventListener('click',()=>next(`sec${i}`,`sec${parseInt(i)+1}`));
+});
 
-    function setupSection(optionsId,comentId,btnId){
-      const radios=document.querySelectorAll(`#${optionsId} input`);
-      const div=document.getElementById(comentId);
-      const btn=document.getElementById(btnId);
-      radios.forEach(r=>{
-        r.addEventListener('change',()=>{
-          div.classList.remove('hidden');
-          const t=div.querySelector('textarea');
-          t.addEventListener('input',()=>{if(t.value.trim().length>3)btn.classList.remove('hidden');});
-        });
-      });
-    }
+// Envío con animación
+document.getElementById('form').addEventListener('submit',async e=>{
+ e.preventDefault();
+ const form=document.getElementById('form');
+ const intro=document.getElementById('intro');
+ const loading=document.getElementById('loading');
+ const msg=document.getElementById('msg');
+ const main=document.getElementById('mainContent');
 
-    setupSection("trabajosOptions","coment_trabajos","btn2");
-    setupSection("cumplimientoOptions","coment_cumplimiento","btn3");
-    setupSection("asesoramientoOptions","coment_asesoramiento","btn4");
-    setupSection("tiempoOptions","coment_tiempo","btn5");
-    setupSection("amabilidad2Options","coment_amabilidad2","btn6");
+ form.style.animation='fadeOut .5s forwards';
+ intro.style.animation='fadeOut .5s forwards';
+ main.classList.add('blur-bg');
+ setTimeout(()=>{
+   form.classList.add('hidden');
+   intro.classList.add('hidden');
+   loading.classList.remove('hidden');
+   loading.style.animation='fadeIn .5s';
+ },400);
 
-    function setupSectionFinal(optionsId,ids,btnId){
-      const radios=document.querySelectorAll(`#${optionsId} input`);
-      const divs=ids.map(i=>document.getElementById(i));
-      const btn=document.getElementById(btnId);
-      radios.forEach(r=>{
-        r.addEventListener('change',()=>{
-          divs.forEach(d=>d.classList.remove('hidden'));
-          const ts=divs.map(d=>d.querySelector('textarea'));
-          ts.forEach(t=>{
-            t.addEventListener('input',()=>{
-              if(ts.every(x=>x.value.trim().length>3))btn.classList.remove('hidden');
-            });
-          });
-        });
-      });
-    }
+ // Capturar datos
+ const data={nombre:document.getElementById('nombre').innerText};
+ document.querySelectorAll('input[type="radio"]:checked, textarea').forEach(el=>{
+   if(el.name)data[el.name]=el.value;
+ });
 
-    setupSectionFinal("calidadOptions",["coment_calidad_1","coment_calidad_2"],"btnEnviar");
-
-    // Envío con animaciones
-    document.getElementById('form').addEventListener('submit',async e=>{
-      e.preventDefault();
-      const form=document.getElementById('form');
-      const intro=document.getElementById('intro');
-      const loading=document.getElementById('loading');
-      const msg=document.getElementById('msg');
-      form.style.animation='fadeOut 0.5s forwards';
-      intro.style.animation='fadeOut 0.5s forwards';
-      setTimeout(()=>{
-        form.classList.add('hidden');
-        intro.classList.add('hidden');
-        loading.classList.remove('hidden');
-        loading.style.animation='fadeIn 0.5s';
-      },400);
-
-      const data={nombre:document.getElementById('nombre').innerText};
-      document.querySelectorAll('input[type="radio"]:checked, textarea').forEach(el=>{
-        if(el.name)data[el.name]=el.value;
-      });
-
-      const url="https://35.208.11.175/webhook-test/94d5ddbf-b78d-4c54-9d6c-52ca809e3def";
-      try{
-        const response=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
-        const result=await response.json();
-        loading.style.animation='fadeOut 0.6s forwards';
-        setTimeout(()=>{
-          loading.classList.add('hidden');
-          msg.innerHTML=`<div style="text-align:center; animation:fadeIn 1s;">
-              <h3>¡Gracias por su participación!</h3>
-              <p>Sus respuestas fueron registradas correctamente.<br>Su opinión es muy valiosa y nos ayuda a mejorar continuamente.</p>
-              <p><strong>Atentamente,<br>El equipo de Estudio Quineche</strong></p>
-          </div>`;
-        },500);
-      }catch(err){
-        loading.classList.add('hidden');
-        msg.innerHTML=`<p style="color:red; text-align:center;">❌ Error: ${err.message}</p>`;
-      }
-    });
-  </script>
+ const url="https://n8n-latest-2ypl.onrender.com/webhook-test/00f25c8a-9265-42f2-b5e2-b23182bdaa38";
+ try{
+   const response=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
+   const result=await response.json();
+   loading.style.animation='fadeOut .6s forwards';
+   setTimeout(()=>{
+     loading.classList.add('hidden');
+     main.classList.remove('blur-bg');
+     msg.innerHTML=`<div style="text-align:center;animation:fadeIn 1s;">
+       <h3>✅ ¡Gracias por su participación!</h3>
+       <p>Sus respuestas fueron registradas correctamente.<br>Su opinión es muy valiosa y nos ayuda a mejorar continuamente.</p>
+       <p><strong>Atentamente,<br>El equipo de Estudio Quineche</strong></p>
+     </div>`;
+   },500);
+ }catch(err){
+   loading.classList.add('hidden');
+   main.classList.remove('blur-bg');
+   msg.innerHTML=`<p style="color:red;text-align:center;">❌ Error: ${err.message}</p>`;
+   form.classList.remove('hidden');
+ }
+});
+</script>
 </body>
 </html>
