@@ -416,7 +416,7 @@
       });
     });
 
-    // ✅ Validación antes de enviar con logs detallados
+// ✅ Validación antes de enviar con logs
 document.getElementById("form").addEventListener("submit", async e => {
   e.preventDefault();
 
@@ -448,11 +448,30 @@ document.getElementById("form").addEventListener("submit", async e => {
   });
 
   console.log("🧾 Validando textareas...");
-  const vacios = Array.from(form.querySelectorAll("textarea")).filter(
-    t => t.value.trim().length < 3
-  );
+
+  // --- Recomendación: determinar cuál textarea debe ser obligatorio
+  const recomendacion = form.querySelector("input[name='recomendacionOptions']:checked");
+  let requerido = null;
+  if (recomendacion) {
+    const val = parseInt(recomendacion.value);
+    if (val <= 6) requerido = "comentario_0_6";
+    else if (val <= 8) requerido = "comentario_7_8";
+    else requerido = "comentario_9_10";
+    console.log(`🧠 Solo se requiere llenar: ${requerido}`);
+  }
+
+  // --- Validar solo los textareas visibles u obligatorios
+  const textareas = Array.from(form.querySelectorAll("textarea"));
+  const vacios = textareas.filter(t => {
+    // Solo validar el requerido o los demás que estén visibles
+    const esVisible = !t.closest(".hidden");
+    const esRequerido = t.name === requerido;
+    return (esVisible || esRequerido) && t.value.trim().length < 3;
+  });
+
   vacios.forEach(v => console.warn(`⚠️ Textarea vacío: ${v.name}`));
 
+  // --- Si hay faltantes o vacíos
   if (faltantes.length > 0 || vacios.length > 0) {
     console.log("❌ Faltan campos por completar");
     const primero = faltantes.length
