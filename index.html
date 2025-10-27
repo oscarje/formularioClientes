@@ -427,20 +427,15 @@
     });
 
 
-    // ✅ Validación antes de enviar (solo oculta #intro)
 document.getElementById("form").addEventListener("submit", async e => {
   e.preventDefault();
 
   console.log("🚀 Evento submit detectado");
 
   const form = e.target;
- const form = document.getElementById('form');
-      const intro = document.getElementById('intro');
-      const loading = document.getElementById('loading');
-      const msg = document.getElementById('msg');
-      const main = document.getElementById('mainContent');
-
-
+  const intro = document.getElementById('intro');
+  const loading = document.getElementById('loading');
+  const msg = document.getElementById('msg');
 
   const grupos = [
     "recomendacionOptions",
@@ -454,7 +449,6 @@ document.getElementById("form").addEventListener("submit", async e => {
 
   console.log("🧩 Iniciando validación de radios...");
 
-  // Validar radios
   grupos.forEach(nombre => {
     const seleccion = form.querySelector(`input[name='${nombre}']:checked`);
     if (!seleccion) {
@@ -467,7 +461,6 @@ document.getElementById("form").addEventListener("submit", async e => {
 
   console.log("🧾 Validando textareas...");
 
-  // Determinar cuál textarea es obligatorio según recomendación
   const recomendacion = form.querySelector("input[name='recomendacionOptions']:checked");
   let requerido = null;
   if (recomendacion) {
@@ -478,7 +471,6 @@ document.getElementById("form").addEventListener("submit", async e => {
     console.log(`🧠 Solo se requiere llenar: ${requerido}`);
   }
 
-  // Validar textareas vacíos
   const textareas = Array.from(form.querySelectorAll("textarea"));
   const vacios = textareas.filter(t => {
     const esVisible = !t.closest(".hidden");
@@ -487,7 +479,6 @@ document.getElementById("form").addEventListener("submit", async e => {
   });
   vacios.forEach(v => console.warn(`⚠️ Textarea vacío: ${v.name}`));
 
-  // Mostrar alerta si falta algo
   if (faltantes.length > 0 || vacios.length > 0) {
     console.log("❌ Faltan campos por completar");
     const primero = faltantes.length
@@ -500,19 +491,9 @@ document.getElementById("form").addEventListener("submit", async e => {
     return;
   }
 
-  // ✅ Si todo está correcto
   console.log("✅ Todos los campos completos. Enviando datos...");
 
-     form.style.animation = 'fadeOut .5s forwards';
-      intro.style.animation = 'fadeOut .5s forwards';
-      setTimeout(() => {
-        form.classList.add('hidden');
-        intro.classList.add('hidden');
-        loading.classList.remove('hidden');
-        loading.style.animation = 'fadeIn .5s';
-      }, 400);
-
-  // Solo ocultar el bloque con preguntas (#intro)
+  // 🔹 Animación (solo oculta #intro y muestra el spinner)
   intro.style.animation = 'fadeOut .5s forwards';
   setTimeout(() => {
     intro.classList.add('hidden');
@@ -520,32 +501,40 @@ document.getElementById("form").addEventListener("submit", async e => {
     loading.style.animation = 'fadeIn .5s';
   }, 400);
 
-  // Capturar datos
+  // 🔹 Enviar datos
   const data = {};
   new FormData(form).forEach((v, k) => (data[k] = v));
   console.log("📦 Datos recopilados:", data);
 
   const url = "https://n8n.estudioquineche.com/webhook-test/94d5ddbf-b78d-4c54-9d6c-52ca809e3def";
-  console.log(`🌍 Enviando solicitud POST a: ${url}`);
 
   try {
-        const response = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
-        const result = await response.json();
-        loading.style.animation = 'fadeOut .6s forwards';
-        setTimeout(() => {
-          loading.classList.add('hidden');
-          msg.innerHTML = `<div style="text-align:center;animation:fadeIn 1s;">
-       <h3>¡Gracias por su participación!</h3>
-       <p>Sus respuestas fueron registradas correctamente.<br>Su opinión es muy valiosa y nos ayuda a mejorar continuamente.</p>
-       <p><strong>Atentamente,<br>El equipo de Estudio Quineche</strong></p>
-     </div>`;
-        }, 500);
-      } catch (err) {
-        loading.classList.add('hidden');
-        msg.innerHTML = `<p style="color:red;text-align:center;">❌ Error: ${err.message}</p>`;
-        form.classList.remove('hidden');
-      }
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
     });
+
+    const result = await response.json();
+    console.log("📡 Respuesta recibida:", result);
+
+    loading.style.animation = 'fadeOut .6s forwards';
+    setTimeout(() => {
+      loading.classList.add('hidden');
+      msg.innerHTML = `
+        <div style="text-align:center;animation:fadeIn 1s;">
+          <h3>¡Gracias por su participación!</h3>
+          <p>Sus respuestas fueron registradas correctamente.<br>Su opinión es muy valiosa y nos ayuda a mejorar continuamente.</p>
+          <p><strong>Atentamente,<br>El equipo de Estudio Quineche</strong></p>
+        </div>`;
+    }, 500);
+  } catch (err) {
+    console.error("💥 Error en el envío:", err);
+    loading.classList.add('hidden');
+    msg.innerHTML = `<p style="color:red;text-align:center;">❌ Error: ${err.message}</p>`;
+    intro.classList.remove('hidden');
+  }
+});
 
 
   </script>
