@@ -500,7 +500,18 @@ document.getElementById("form").addEventListener("submit", async e => {
 
   // 🔹 Enviar datos
   const data = {};
+
+  // Captura todos los valores del formulario
   new FormData(form).forEach((v, k) => (data[k] = v));
+
+  // 🔸 Agregar nombre desde la URL
+  const params = new URLSearchParams(window.location.search);
+  data.nombre = params.get("nombre") || "cliente";
+
+  // 🔸 Agregar fecha y hora actual (formato legible)
+  const ahora = new Date();
+  data.fecha_envio = ahora.toLocaleDateString("es-PE");
+  data.hora_envio = ahora.toLocaleTimeString("es-PE", { hour12: false });
 
   const url = "https://n8n.estudioquineche.com/webhook/94d5ddbf-b78d-4c54-9d6c-52ca809e3def";
 
