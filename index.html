@@ -434,9 +434,13 @@ document.getElementById("form").addEventListener("submit", async e => {
   console.log("🚀 Evento submit detectado");
 
   const form = e.target;
-  const msg = document.getElementById("msg");
-  const intro = document.getElementById("intro");
-  const loading = document.getElementById("loading");
+ const form = document.getElementById('form');
+      const intro = document.getElementById('intro');
+      const loading = document.getElementById('loading');
+      const msg = document.getElementById('msg');
+      const main = document.getElementById('mainContent');
+
+
 
   const grupos = [
     "recomendacionOptions",
@@ -499,6 +503,15 @@ document.getElementById("form").addEventListener("submit", async e => {
   // ✅ Si todo está correcto
   console.log("✅ Todos los campos completos. Enviando datos...");
 
+     form.style.animation = 'fadeOut .5s forwards';
+      intro.style.animation = 'fadeOut .5s forwards';
+      setTimeout(() => {
+        form.classList.add('hidden');
+        intro.classList.add('hidden');
+        loading.classList.remove('hidden');
+        loading.style.animation = 'fadeIn .5s';
+      }, 400);
+
   // Solo ocultar el bloque con preguntas (#intro)
   intro.style.animation = 'fadeOut .5s forwards';
   setTimeout(() => {
@@ -516,35 +529,23 @@ document.getElementById("form").addEventListener("submit", async e => {
   console.log(`🌍 Enviando solicitud POST a: ${url}`);
 
   try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
+        const response = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
+        const result = await response.json();
+        loading.style.animation = 'fadeOut .6s forwards';
+        setTimeout(() => {
+          loading.classList.add('hidden');
+          msg.innerHTML = `<div style="text-align:center;animation:fadeIn 1s;">
+       <h3>¡Gracias por su participación!</h3>
+       <p>Sus respuestas fueron registradas correctamente.<br>Su opinión es muy valiosa y nos ayuda a mejorar continuamente.</p>
+       <p><strong>Atentamente,<br>El equipo de Estudio Quineche</strong></p>
+     </div>`;
+        }, 500);
+      } catch (err) {
+        loading.classList.add('hidden');
+        msg.innerHTML = `<p style="color:red;text-align:center;">❌ Error: ${err.message}</p>`;
+        form.classList.remove('hidden');
+      }
     });
-
-    console.log("📡 Respuesta recibida:", response.status, response.statusText);
-    const result = await response.text();
-    console.log("✅ Respuesta del servidor:", result);
-
-    // Ocultar loading y mostrar mensaje final
-    loading.style.animation = 'fadeOut .6s forwards';
-    setTimeout(() => {
-      loading.classList.add('hidden');
-      msg.innerHTML = `
-        <div style="text-align:center;animation:fadeIn 1s;">
-          <h3>¡Gracias por su participación!</h3>
-          <p>Sus respuestas fueron registradas correctamente.<br>Su opinión es muy valiosa y nos ayuda a mejorar continuamente.</p>
-          <p><strong>Atentamente,<br>El equipo de Estudio Quineche</strong></p>
-        </div>`;
-    }, 600);
-
-  } catch (err) {
-    console.error("💥 Error en el envío:", err);
-    loading.classList.add('hidden');
-    intro.classList.remove('hidden');
-    msg.innerHTML = `<p style="color:red;text-align:center;">❌ Error: ${err.message}</p>`;
-  }
-});
 
 
   </script>
