@@ -502,7 +502,7 @@ document.getElementById("form").addEventListener("submit", async e => {
   const data = {};
   new FormData(form).forEach((v, k) => (data[k] = v));
 
-  const url = "https://n8n.estudioquineche.com/webhook-test/94d5ddbf-b78d-4c54-9d6c-52ca809e3def";
+  const url = "https://n8n.estudioquineche.com/webhook/94d5ddbf-b78d-4c54-9d6c-52ca809e3def";
 
   try {
     const response = await fetch(url, {
