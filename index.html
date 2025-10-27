@@ -484,7 +484,6 @@ document.getElementById("form").addEventListener("submit", async e => {
     primero.scrollIntoView({ behavior: "smooth", block: "center" });
     primero.classList.add("error");
     setTimeout(() => primero.classList.remove("error"), 2000);
-    alert("⚠️ Por favor completa todas las preguntas antes de enviar.");
     return;
   }
 
