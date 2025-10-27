@@ -432,8 +432,8 @@ document.getElementById("form").addEventListener("submit", async e => {
 
   console.log("🚀 Evento submit detectado");
 
-  const form = e.target;
-  const intro = document.getElementById('intro');
+  const form = document.getElementById('form');
+   const intro = document.getElementById('intro');
   const loading = document.getElementById('loading');
   const msg = document.getElementById('msg');
 
@@ -494,11 +494,13 @@ document.getElementById("form").addEventListener("submit", async e => {
   console.log("✅ Todos los campos completos. Enviando datos...");
 
   // 🔹 Animación (solo oculta #intro y muestra el spinner)
+ form.style.animation = 'fadeOut .5s forwards';
   intro.style.animation = 'fadeOut .5s forwards';
   setTimeout(() => {
-    intro.classList.add('hidden');
-    loading.classList.remove('hidden');
-    loading.style.animation = 'fadeIn .5s';
+      form.classList.add('hidden');
+        intro.classList.add('hidden');
+        loading.classList.remove('hidden');
+        loading.style.animation = 'fadeIn .5s';
   }, 400);
 
   // 🔹 Enviar datos
