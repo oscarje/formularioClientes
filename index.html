@@ -201,6 +201,16 @@
 
     <div class="content">
       <h2>Encuesta de Satisfacción</h2>
+
+      <div id="loading" class="hidden" style="text-align:center;padding:60px 20px;">
+        <div style="font-size:1.3rem;color:#4b3df5;font-weight:600;margin-bottom:20px;">⏳ Enviando tus respuestas...
+        </div>
+        <div class="spinner"
+          style="border:5px solid #eee;border-top:5px solid #4b3df5;border-radius:50%;width:70px;height:70px;margin:0 auto;animation:spin 1s linear infinite;">
+        </div>
+      </div>
+
+      
       <div id="intro">
         <p><strong>Estimado(a) <span id="nombre"></span>:</strong></p>
         <p>
@@ -416,7 +426,8 @@
       });
     });
 
-// ✅ Validación antes de enviar con logs
+
+    // ✅ Validación antes de enviar (solo oculta #intro)
 document.getElementById("form").addEventListener("submit", async e => {
   e.preventDefault();
 
@@ -424,6 +435,9 @@ document.getElementById("form").addEventListener("submit", async e => {
 
   const form = e.target;
   const msg = document.getElementById("msg");
+  const intro = document.getElementById("intro");
+  const loading = document.getElementById("loading");
+
   const grupos = [
     "recomendacionOptions",
     "trabajosOptions",
@@ -449,7 +463,7 @@ document.getElementById("form").addEventListener("submit", async e => {
 
   console.log("🧾 Validando textareas...");
 
-  // --- Recomendación: determinar cuál textarea debe ser obligatorio
+  // Determinar cuál textarea es obligatorio según recomendación
   const recomendacion = form.querySelector("input[name='recomendacionOptions']:checked");
   let requerido = null;
   if (recomendacion) {
@@ -460,18 +474,16 @@ document.getElementById("form").addEventListener("submit", async e => {
     console.log(`🧠 Solo se requiere llenar: ${requerido}`);
   }
 
-  // --- Validar solo los textareas visibles u obligatorios
+  // Validar textareas vacíos
   const textareas = Array.from(form.querySelectorAll("textarea"));
   const vacios = textareas.filter(t => {
-    // Solo validar el requerido o los demás que estén visibles
     const esVisible = !t.closest(".hidden");
     const esRequerido = t.name === requerido;
     return (esVisible || esRequerido) && t.value.trim().length < 3;
   });
-
   vacios.forEach(v => console.warn(`⚠️ Textarea vacío: ${v.name}`));
 
-  // --- Si hay faltantes o vacíos
+  // Mostrar alerta si falta algo
   if (faltantes.length > 0 || vacios.length > 0) {
     console.log("❌ Faltan campos por completar");
     const primero = faltantes.length
@@ -484,21 +496,26 @@ document.getElementById("form").addEventListener("submit", async e => {
     return;
   }
 
-  // ✅ Si pasa la validación, continúa
-  console.log("✅ Todos los campos completos. Preparando envío...");
+  // ✅ Si todo está correcto
+  console.log("✅ Todos los campos completos. Enviando datos...");
 
+  // Solo ocultar el bloque con preguntas (#intro)
+  intro.style.animation = 'fadeOut .5s forwards';
+  setTimeout(() => {
+    intro.classList.add('hidden');
+    loading.classList.remove('hidden');
+    loading.style.animation = 'fadeIn .5s';
+  }, 400);
+
+  // Capturar datos
   const data = {};
   new FormData(form).forEach((v, k) => (data[k] = v));
   console.log("📦 Datos recopilados:", data);
 
-  msg.style.color = "#4b3df5";
-  msg.innerHTML = "⏳ Enviando tus respuestas...";
-
-  const url =
-    "https://n8n.estudioquineche.com/webhook-test/94d5ddbf-b78d-4c54-9d6c-52ca809e3def";
+  const url = "https://n8n.estudioquineche.com/webhook-test/94d5ddbf-b78d-4c54-9d6c-52ca809e3def";
+  console.log(`🌍 Enviando solicitud POST a: ${url}`);
 
   try {
-    console.log(`🌍 Enviando solicitud POST a: ${url}`);
     const response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -506,23 +523,26 @@ document.getElementById("form").addEventListener("submit", async e => {
     });
 
     console.log("📡 Respuesta recibida:", response.status, response.statusText);
+    const result = await response.text();
+    console.log("✅ Respuesta del servidor:", result);
 
-    if (response.ok) {
-      const result = await response.text();
-      console.log("✅ Respuesta del servidor:", result);
-      msg.style.color = "green";
-      msg.innerHTML =
-        "✅ ¡Gracias! Tus respuestas fueron registradas correctamente.";
-      form.reset();
-    } else {
-      const text = await response.text();
-      console.error("❌ Error del servidor:", text);
-      throw new Error(`Error al enviar los datos (${response.status})`);
-    }
+    // Ocultar loading y mostrar mensaje final
+    loading.style.animation = 'fadeOut .6s forwards';
+    setTimeout(() => {
+      loading.classList.add('hidden');
+      msg.innerHTML = `
+        <div style="text-align:center;animation:fadeIn 1s;">
+          <h3>¡Gracias por su participación!</h3>
+          <p>Sus respuestas fueron registradas correctamente.<br>Su opinión es muy valiosa y nos ayuda a mejorar continuamente.</p>
+          <p><strong>Atentamente,<br>El equipo de Estudio Quineche</strong></p>
+        </div>`;
+    }, 600);
+
   } catch (err) {
-    console.error("💥 Error en el bloque try/catch:", err);
-    msg.style.color = "red";
-    msg.textContent = `❌ ${err.message}`;
+    console.error("💥 Error en el envío:", err);
+    loading.classList.add('hidden');
+    intro.classList.remove('hidden');
+    msg.innerHTML = `<p style="color:red;text-align:center;">❌ Error: ${err.message}</p>`;
   }
 });
 
