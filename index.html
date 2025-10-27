@@ -435,9 +435,7 @@
 
 document.getElementById("form").addEventListener("submit", async e => {
   e.preventDefault();
-
-  console.log("🚀 Evento submit detectado");
-
+  
   const form = document.getElementById('form');
    const intro = document.getElementById('intro');
   const loading = document.getElementById('loading');
@@ -453,19 +451,14 @@ document.getElementById("form").addEventListener("submit", async e => {
   ];
   const faltantes = [];
 
-  console.log("🧩 Iniciando validación de radios...");
-
   grupos.forEach(nombre => {
     const seleccion = form.querySelector(`input[name='${nombre}']:checked`);
     if (!seleccion) {
       faltantes.push(nombre);
       console.warn(`⚠️ Falta seleccionar: ${nombre}`);
     } else {
-      console.log(`✅ ${nombre}: ${seleccion.value}`);
     }
   });
-
-  console.log("🧾 Validando textareas...");
 
   const recomendacion = form.querySelector("input[name='recomendacionOptions']:checked");
   let requerido = null;
@@ -474,7 +467,6 @@ document.getElementById("form").addEventListener("submit", async e => {
     if (val <= 6) requerido = "comentario_0_6";
     else if (val <= 8) requerido = "comentario_7_8";
     else requerido = "comentario_9_10";
-    console.log(`🧠 Solo se requiere llenar: ${requerido}`);
   }
 
   const textareas = Array.from(form.querySelectorAll("textarea"));
@@ -486,7 +478,6 @@ document.getElementById("form").addEventListener("submit", async e => {
   vacios.forEach(v => console.warn(`⚠️ Textarea vacío: ${v.name}`));
 
   if (faltantes.length > 0 || vacios.length > 0) {
-    console.log("❌ Faltan campos por completar");
     const primero = faltantes.length
       ? document.getElementById(faltantes[0])
       : vacios[0];
@@ -496,8 +487,6 @@ document.getElementById("form").addEventListener("submit", async e => {
     alert("⚠️ Por favor completa todas las preguntas antes de enviar.");
     return;
   }
-
-  console.log("✅ Todos los campos completos. Enviando datos...");
 
   // 🔹 Animación (solo oculta #intro y muestra el spinner)
  form.style.animation = 'fadeOut .5s forwards';
@@ -512,7 +501,6 @@ document.getElementById("form").addEventListener("submit", async e => {
   // 🔹 Enviar datos
   const data = {};
   new FormData(form).forEach((v, k) => (data[k] = v));
-  console.log("📦 Datos recopilados:", data);
 
   const url = "https://n8n.estudioquineche.com/webhook-test/94d5ddbf-b78d-4c54-9d6c-52ca809e3def";
 
@@ -524,7 +512,6 @@ document.getElementById("form").addEventListener("submit", async e => {
     });
 
     const result = await response.json();
-    console.log("📡 Respuesta recibida:", result);
 
     loading.style.animation = 'fadeOut .6s forwards';
     setTimeout(() => {
