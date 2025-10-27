@@ -190,6 +190,12 @@
         transform: translateY(0);
       }
     }
+
+    @keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
   </style>
 </head>
 
@@ -202,7 +208,7 @@
     <div class="content">
       <h2>Encuesta de Satisfacción</h2>
 
-      <div id="loading" class="hidden" style="text-align:center;padding:60px 20px;">
+     <div id="loading" class="hidden" style="text-align:center;padding:60px 20px;">
         <div style="font-size:1.3rem;color:#4b3df5;font-weight:600;margin-bottom:20px;">⏳ Enviando tus respuestas...
         </div>
         <div class="spinner"
